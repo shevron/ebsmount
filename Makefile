@@ -55,8 +55,11 @@ define with-py-executables
 	fi;
 endef
 
+%.rules: %.rules.in
+	sed "s#@PATH_BIN@#$(PATH_BIN)#g" $< > $@
+
 # target: install
-install:
+install: 85-ebsmount.rules
 	@echo
 	@echo \*\* CONFIG: prefix = $(prefix) \*\*
 	@echo 
@@ -78,4 +81,4 @@ uninstall:
 
 # target: clean
 clean:
-	rm -f *.pyc *.pyo _$(progname)
+	rm -f *.pyc *.pyo _$(progname) *.rules
